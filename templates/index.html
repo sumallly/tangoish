@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ことのはたんごish</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+    <div id="t1"></div>
+    <div id="t2"></div>
+    roaded time : {{ time }} <br>
+    {{ ip }}
+    <br><br>------------------------------<br><br>
+    <input type="text" id="input_data">
+    <button type="button" onclick="submit()">Submit</button>
+    <br><br>------------------------------<br><br>
+    input : <div id="input" style="display: inline-block; _display: inline;"></div>
+    <br>
+    return :
+    <div id="result"></div>
+
+    <script>
+        function time() {
+            document.getElementById("t1").innerHTML = new Date().toLocaleString();
+        }
+
+        function submit() {
+            var inputData = $('#input_data').val();
+            document.getElementById("input").innerHTML = inputData;
+            $.ajax({
+                type: 'POST',
+                url: '/ajaxtest',
+                data: { 'input_Data': inputData }
+            }).done(function (response) {
+                $('#result').html(response);
+            }).fail(function () {
+                alert('error!!!');
+            });
+        }
+
+        setInterval(time, 1000)
+        document.getElementById("t2").innerHTML = window.navigator.userProfile;
+    </script>
+
+</body>
+</html>
