@@ -1,14 +1,17 @@
+var sentWords = [];
+
 function time() {
     document.getElementById("t1").innerHTML = new Date().toLocaleString();
-    }
+}
 
 function submit() {
     var inputData = $('#input_data').val();
-    document.getElementById("input").innerHTML = inputData;
+    sentWords.unshift(inputData)
+    document.getElementById("input").innerHTML = sentWords;
     $.ajax({
         type: 'POST',
-        url: '/ajaxtest',
-        data: {'input_data': inputData }
+        url: '/guess',
+        data: {'guessWord': inputData }
     }).done(function (response) {
         $('#result').html(response);
     }).fail(function () {
