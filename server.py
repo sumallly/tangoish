@@ -1,5 +1,5 @@
 ﻿from flask import Flask, request, render_template, jsonify
-import datetime, json, copy
+import datetime, json
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 
