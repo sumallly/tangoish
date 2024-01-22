@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template, jsonify
-import datetime
-import json
+import datetime, json, copy
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 
@@ -12,11 +11,14 @@ def index():
 
 @app.route('/ajaxtest', methods=['POST'])
 def func():
-    input_data = request.form['input_Data']
+    input_data = request.form['input_data']
     input_list = list(input_data)
     ret_dict = {}
-    for char in input_list:
-        ret_dict[char] = str(char.encode('utf-8'))[2:-1]
+    char_dict = {}
+    for i, char in enumerate(input_list):
+        char_dict['char'] = char
+        char_dict['encoded'] = str(char.encode('utf-8'))[2:-1]
+        ret_dict[i] = copy.deepcopy(char_dict)
     print(ret_dict)
     return json.dumps(ret_dict, ensure_ascii=False, indent=2)
 

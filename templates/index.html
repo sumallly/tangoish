@@ -32,7 +32,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/ajaxtest',
-                data: { 'input_Data': inputData }
+                data: { 'input_data': inputData }
             }).done(function (response) {
                 $('#result').html(response);
             }).fail(function () {
