@@ -55,5 +55,5 @@ def coloring():
     return json.dumps(ret_dict, ensure_ascii=False, indent=4)
 
 if __name__ == '__main__':
-    #app.run(port=8001, debug=True)
-    coloring();
+    app.run(port=8001, debug=True)
+    
