@@ -1,5 +1,5 @@
 var sentWords = [];
-var judgedCharJSON
+var CharsJSON;
 
 function time() {
     document.getElementById("t1").innerHTML = new Date().toLocaleString();
