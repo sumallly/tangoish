@@ -9,7 +9,7 @@ def index():
     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
     return render_template('index.html', ip=user_ip, time=now)
 
-def char_basic_list():
+def init_char_status_list():
     hrgn_n = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもや　ゆ　よらりるれろわをん　　'
     ktkn_n = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤ　ユ　ヨラリルレロワヲン　　'
     hrgn_s = 'ぁぃぅぇぉがぎぐげござじずぜぞだぢづでど　　っ　　ばびぶべぼぱぴぷぺぽゃ　ゅ　ょ　　　　　ー　　　　'
@@ -17,12 +17,13 @@ def char_basic_list():
 
     hrgn_l = list(hrgn_n) + list(hrgn_s)
     ktkn_l = list(ktkn_n) + list(ktkn_s)
-    base = []
+    base = {}
     
     for i in range(len(hrgn_l)):
-        base.append([hrgn_l[i], ktkn_l[i], '00000000'])
-        print(base[i])
-    
+        base[hrgn_l[i]] = {'hrgn':hrgn_l[i], 'ktkn':ktkn_l[i], 'color':'00000000'}
+
+    print(json.dumps(base, ensure_ascii=False))
+
     return base
 
 @app.route('/guess', methods=['POST'])
@@ -41,11 +42,11 @@ def coloring():
                 judge[i] = 'h' if i == j else 'b'
                 break
         if judge[i] == 'h':
-            judge_dict[i] = 'A7D28DFF'
+            judge_dict[char_g] = 'A7D28DFF'
         elif judge[i] == 'b':
-            judge_dict[i] = 'FCC948FF'
+            judge_dict[char_g] = 'FCC948FF'
         else:
-            judge_dict[i] = '808080FF'
+            judge_dict[char_g] = '808080FF'
             
     print(guess_list)
     print(right_list)
@@ -59,4 +60,3 @@ def coloring():
 
 if __name__ == '__main__':
     app.run(port=8001, debug=True)
-    
