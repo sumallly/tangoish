@@ -16,15 +16,16 @@ hrgn_n = 'あいうえおかきくけこさしすせそたちつてとなにぬ�
 ktkn_n = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤ　ユ　ヨラリルレロワヲン　　'
 hrgn_s = 'ぁぃぅぇぉがぎぐげござじずぜぞだぢづでど　　っ　　ばびぶべぼぱぴぷぺぽゃ　ゅ　ょ　　　　　ー　　　　'
 ktkn_s = 'ァィゥェォガギグゲゴザジズゼゾダヂヅデド　　ッ　　バビブベボパピプペポャ　ュ　ョ　　　　　ー　　　　'
-'''
+
 hrgn_l = list(hrgn_n) + list(hrgn_s)
 ktkn_l = list(ktkn_n) + list(ktkn_s)
 base = {}
 
 for i in range(len(hrgn_l)):
-    base[hrgn_l[i]] = {'hrgn':hrgn_l[i], 'ktkn':ktkn_l[i], 'color':'00000000'}
+    base[hrgn_l[i]] = {'hrgn':hrgn_l[i], 'ktkn':ktkn_l[i], 'color':00000000}
 
-print(json.dumps(base, ensure_ascii=False, indent=4))
+print(json.dumps(base, ensure_ascii=False))#, indent=4))
+
 '''
 hrgn_n_l = list(hrgn_n)
 hrgn_s_l = list(hrgn_s)
@@ -38,3 +39,4 @@ for i in range(5,10):
     for j in range(10):
         l[i].append(hrgn_s_l[(9-j)*5+i-5])
 print(json.dumps(l, ensure_ascii=False))
+'''

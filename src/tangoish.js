@@ -1,38 +1,84 @@
-const keyLayout =
-    [["‚í", "‚ç", "‚â", "‚Ü", "‚Í", "‚È", "‚½", "‚³", "‚©", "‚ "],
-    ["‚ð", "‚è", "@", "‚Ý", "‚Ð", "‚É", "‚¿", "‚µ", "‚«", "‚¢"],
-    ["‚ñ", "‚é", "‚ä", "‚Þ", "‚Ó", "‚Ê", "‚Â", "‚·", "‚­", "‚¤"],
-    ["@", "‚ê", "@", "‚ß", "‚Ö", "‚Ë", "‚Ä", "‚¹", "‚¯", "‚¦"],
-    ["@", "‚ë", "‚æ", "‚à", "‚Ù", "‚Ì", "‚Æ", "‚»", "‚±", "‚¨"],
-    ["[", "@", "‚á", "‚Ï", "‚Î", "@", "‚¾", "‚´", "‚ª", "‚Ÿ"],
-    ["@", "@", "@", "‚Ò", "‚Ñ", "@", "‚À", "‚¶", "‚¬", "‚¡"],
-    ["@", "@", "‚ã", "‚Õ", "‚Ô", "‚Á", "‚Ã", "‚¸", "‚®", "‚£"],
-    ["@", "@", "@", "‚Ø", "‚×", "@", "‚Å", "‚º", "‚°", "‚¥"],
-    ["@", "@", "‚å", "‚Û", "‚Ú", "@", "‚Ç", "‚¼", "‚²", "‚§"]];
+ï»¿const keyLayout =
+    [["ã‚", "ã‚‰", "ã‚„", "ã¾", "ã¯", "ãª", "ãŸ", "ã•", "ã‹", "ã‚"],
+    ["ã‚’", "ã‚Š", "ã€€", "ã¿", "ã²", "ã«", "ã¡", "ã—", "ã", "ã„"],
+    ["ã‚“", "ã‚‹", "ã‚†", "ã‚€", "ãµ", "ã¬", "ã¤", "ã™", "ã", "ã†"],
+    ["ã€€", "ã‚Œ", "ã€€", "ã‚", "ã¸", "ã­", "ã¦", "ã›", "ã‘", "ãˆ"],
+    ["ã€€", "ã‚", "ã‚ˆ", "ã‚‚", "ã»", "ã®", "ã¨", "ã", "ã“", "ãŠ"],
+    ["ãƒ¼", "ã€€", "ã‚ƒ", "ã±", "ã°", "ã€€", "ã ", "ã–", "ãŒ", "ã"],
+    ["ã€€", "ã€€", "ã€€", "ã´", "ã³", "ã€€", "ã¢", "ã˜", "ãŽ", "ãƒ"],
+    ["ã€€", "ã€€", "ã‚…", "ã·", "ã¶", "ã£", "ã¥", "ãš", "ã", "ã…"],
+    ["ã€€", "ã€€", "ã€€", "ãº", "ã¹", "ã€€", "ã§", "ãœ", "ã’", "ã‡"],
+    ["ã€€", "ã€€", "ã‚‡", "ã½", "ã¼", "ã€€", "ã©", "ãž", "ã”", "ã‰"]];
 var sentWords = [];
-var CharsJSON = {"‚ ": { "hrgn": "‚ ", "ktkn": "ƒA", "color": "00000000" }, "‚¢": { "hrgn": "‚¢", "ktkn": "ƒC", "color": "00000000" }, "‚¤": { "hrgn": "‚¤", "ktkn": "ƒE", "color": "00000000" }, "‚¦": { "hrgn": "‚¦", "ktkn": "ƒG", "color": "00000000" }, "‚¨": { "hrgn": "‚¨", "ktkn": "ƒI", "color": "00000000" }, "‚©": { "hrgn": "‚©", "ktkn": "ƒJ", "color": "00000000" }, "‚«": { "hrgn": "‚«", "ktkn": "ƒL", "color": "00000000" }, "‚­": { "hrgn": "‚­", "ktkn": "ƒN", "color": "00000000" }, "‚¯": { "hrgn": "‚¯", "ktkn": "ƒP", "color": "00000000" }, "‚±": { "hrgn": "‚±", "ktkn": "ƒR", "color": "00000000" }, "‚³": { "hrgn": "‚³", "ktkn": "ƒT", "color": "00000000" }, "‚µ": { "hrgn": "‚µ", "ktkn": "ƒV", "color": "00000000" }, "‚·": { "hrgn": "‚·", "ktkn": "ƒX", "color": "00000000" }, "‚¹": { "hrgn": "‚¹", "ktkn": "ƒZ", "color": "00000000" }, "‚»": { "hrgn": "‚»", "ktkn": "ƒ\", "color": "00000000" }, "‚½": { "hrgn": "‚½", "ktkn": "ƒ^", "color": "00000000" }, "‚¿": { "hrgn": "‚¿", "ktkn": "ƒ`", "color": "00000000" }, "‚Â": { "hrgn": "‚Â", "ktkn": "ƒc", "color": "00000000" }, "‚Ä": { "hrgn": "‚Ä", "ktkn": "ƒe", "color": "00000000" }, "‚Æ": { "hrgn": "‚Æ", "ktkn": "ƒg", "color": "00000000" }, "‚È": { "hrgn": "‚È", "ktkn": "ƒi", "color": "00000000" }, "‚É": { "hrgn": "‚É", "ktkn": "ƒj", "color": "00000000" }, "‚Ê": { "hrgn": "‚Ê", "ktkn": "ƒk", "color": "00000000" }, "‚Ë": { "hrgn": "‚Ë", "ktkn": "ƒl", "color": "00000000" }, "‚Ì": { "hrgn": "‚Ì", "ktkn": "ƒm", "color": "00000000" }, "‚Í": { "hrgn": "‚Í", "ktkn": "ƒn", "color": "00000000" }, "‚Ð": { "hrgn": "‚Ð", "ktkn": "ƒq", "color": "00000000" }, "‚Ó": { "hrgn": "‚Ó", "ktkn": "ƒt", "color": "00000000" }, "‚Ö": { "hrgn": "‚Ö", "ktkn": "ƒw", "color": "00000000" }, "‚Ù": {"hrgn": "‚Ù", "ktkn": "ƒz", "color": "00000000"}, "‚Ü": {"hrgn": "‚Ü", "ktkn": "ƒ}", "color": "00000000"}, "‚Ý": {"hrgn": "‚Ý", "ktkn": "ƒ~", "color": "00000000"}, "‚Þ": {"hrgn": "‚Þ", "ktkn": "ƒ€", "color": "00000000"}, "‚ß": {"hrgn": "‚ß", "ktkn": "ƒ", "color": "00000000"}, "‚à": {"hrgn": "‚à", "ktkn": "ƒ‚", "color": "00000000"}, "‚â": {"hrgn": "‚â", "ktkn": "ƒ„", "color": "00000000"}, "‚ä": {"hrgn": "‚ä", "ktkn": "ƒ†", "color": "00000000"}, "‚æ": {"hrgn": "‚æ", "ktkn": "ƒˆ", "color": "00000000"}, "‚ç": {"hrgn": "‚ç", "ktkn": "ƒ‰", "color": "00000000"}, "‚è": {"hrgn": "‚è", "ktkn": "ƒŠ", "color": "00000000"}, "‚é": {"hrgn": "‚é", "ktkn": "ƒ‹", "color": "00000000"}, "‚ê": {"hrgn": "‚ê", "ktkn": "ƒŒ", "color": "00000000"}, "‚ë": {"hrgn": "‚ë", "ktkn": " ƒ", "color": "00000000"}, "‚í": {"hrgn": "‚í", "ktkn": "ƒ", "color": "00000000"}, "‚ð": {"hrgn": "‚ð", "ktkn": "ƒ’", "color": "00000000"}, "‚ñ": {"hrgn": "‚ñ", "ktkn": "ƒ“", "color": "00000000"}, "‚Ÿ": {"hrgn": "‚Ÿ", "ktkn": "ƒ@", "color": "00000000"}, "‚¡": {"hrgn": "‚¡", "ktkn": "ƒB", "color": "00000000"}, "‚£": {"hrgn": "‚£", "ktkn": "ƒD", "color": "00000000"}, "‚¥": {"hrgn": "‚¥", "ktkn": "ƒF", "color": "00000000"}, "‚§": {"hrgn": "‚§", "ktkn": "ƒH", "color": "00000000"}, "‚ª": {"hrgn": "‚ª", "ktkn": "ƒK", "color": "00000000"}, "‚¬": {"hrgn": "‚¬", "ktkn": "ƒM", "color": "00000000"}, "‚®": {"hrgn": "‚®", "ktkn": "ƒO", "color": "00000000"}, "‚°": {"hrgn": "‚°", "ktkn": "ƒQ", "color": "00000000"}, "‚²": {"hrgn": "‚²", "ktkn": "ƒS", "color": "00000000"}, "‚´": {"hrgn": "‚´", "ktkn": "ƒU", "color": "00000000"}, "‚¶": {"hrgn": "‚¶", "ktkn": "ƒW", "color": "00000000"}, "‚¸": {"hrgn": "‚¸", "ktkn": "ƒY", "color": "00000000"}, "‚º": {"hrgn": "‚º", "ktkn": "ƒ[", "color": "00000000"}, "‚¼": {"hrgn": "‚¼", "ktkn": "ƒ]", "color": "00000000"}, "‚¾": {"hrgn": "‚¾", "ktkn": "ƒ_", "color": "00000000"}, "‚À": {"hrgn": "‚À", "ktkn": "ƒa", "color": "00000000"}, "‚Ã": {"hrgn": "‚Ã", "ktkn": "ƒd", "color": "00000000"}, "‚Å": {"hrgn": "‚Å", "ktkn": "ƒf", "color": "00000000"}, "‚Ç": {"hrgn": "‚Ç", "ktkn": "ƒh", "color": "00000000"}, "‚Á": {"hrgn": "‚Á", "ktkn": "ƒb", "color": "00000000"}, "‚Î": {"hrgn": "‚Î", "ktkn": "ƒo", "color": "00000000"}, "‚Ñ": {"hrgn": "‚Ñ", "ktkn": "ƒr", "color": "00000000"}, "‚Ô": {"hrgn": "‚Ô", "ktkn": "ƒu", "color": "00000000"}, "‚×": {"hrgn": "‚×", "ktkn": "ƒx", "color": "00000000"}, "‚Ú": {"hrgn": "‚Ú", "ktkn": "ƒ{", "color": "00000000"}, "‚Ï": {"hrgn": "‚Ï", "ktkn": "ƒp", "color": "00000000"}, "‚Ò": {"hrgn": "‚Ò", "ktkn": "ƒs", "color": "00000000"}, "‚Õ": {"hrgn": "‚Õ", "ktkn": "ƒv", "color": "00000000"}, "‚Ø": {"hrgn": "‚Ø", "ktkn": "ƒy", "color": "00000000"}, "‚Û": {"hrgn": "‚Û", "ktkn": "ƒ|", "color": "00000000"}, "‚á": {"hrgn": "‚á", "ktkn": "ƒƒ", "color": "00000000"}, "‚ã": {"hrgn": "‚ã", "ktkn": "ƒ…", "color": "00000000"}, "‚å": {"hrgn": "‚å", "ktkn": "ƒ‡", "color": "00000000"}, "[": {"hrgn": "[", "ktkn": "[", "color": "00000000"}};
+var charsJSON = { "ã‚": { "hrgn": "ã‚", "ktkn": "ã‚¢", "color": 0 }, "ã„": { "hrgn": "ã„", "ktkn": "ã‚¤", "color": 0 }, "ã†": { "hrgn": "ã†", "ktkn": "ã‚¦", "color": 0 }, "ãˆ": { "hrgn": "ãˆ", "ktkn": "ã‚¨", "color": 0 }, "ãŠ": { "hrgn": "ãŠ", "ktkn": "ã‚ª", "color": 0 }, "ã‹": { "hrgn": "ã‹", "ktkn": "ã‚«", "color": 0 }, "ã": { "hrgn": "ã", "ktkn": "ã‚­", "color": 0 }, "ã": { "hrgn": "ã", "ktkn": "ã‚¯", "color": 0 }, "ã‘": { "hrgn": "ã‘", "ktkn": "ã‚±", "color": 0 }, "ã“": { "hrgn": "ã“", "ktkn": "ã‚³", "color": 0 }, "ã•": { "hrgn": "ã•", "ktkn": "ã‚µ", "color": 0 }, "ã—": { "hrgn": "ã—", "ktkn": "ã‚·", "color": 0 }, "ã™": { "hrgn": "ã™", "ktkn": "ã‚¹", "color": 0 }, "ã›": { "hrgn": "ã›", "ktkn": "ã‚»", "color": 0 }, "ã": { "hrgn": "ã", "ktkn": "ã‚½", "color": 0 }, "ãŸ": { "hrgn": "ãŸ", "ktkn": "ã‚¿", "color": 0 }, "ã¡": { "hrgn": "ã¡", "ktkn": "ãƒ", "color": 0 }, "ã¤": { "hrgn": "ã¤", "ktkn": "ãƒ„", "color": 0 }, "ã¦": { "hrgn": "ã¦", "ktkn": "ãƒ†", "color": 0 }, "ã¨": { "hrgn": "ã¨", "ktkn": "ãƒˆ", "color": 0 }, "ãª": { "hrgn": "ãª", "ktkn": "ãƒŠ", "color": 0 }, "ã«": { "hrgn": "ã«", "ktkn": "ãƒ‹", "color": 0 }, "ã¬": { "hrgn": "ã¬", "ktkn": "ãƒŒ", "color": 0 }, "ã­": { "hrgn": "ã­", "ktkn": "ãƒ", "color": 0 }, "ã®": { "hrgn": "ã®", "ktkn": "ãƒŽ", "color": 0 }, "ã¯": { "hrgn": "ã¯", "ktkn": "ãƒ", "color": 0 }, "ã²": { "hrgn": "ã²", "ktkn": "ãƒ’", "color": 0 }, "ãµ": { "hrgn": "ãµ", "ktkn": "ãƒ•", "color": 0 }, "ã¸": { "hrgn": "ã¸", "ktkn": "ãƒ˜", "color": 0 }, "ã»": { "hrgn": "ã»", "ktkn": "ãƒ›", "color": 0 }, "ã¾": { "hrgn": "ã¾", "ktkn": "ãƒž", "color": 0 }, "ã¿": { "hrgn": "ã¿", "ktkn": "ãƒŸ", "color": 0 }, "ã‚€": { "hrgn": "ã‚€", "ktkn": "ãƒ ", "color": 0 }, "ã‚": { "hrgn": "ã‚", "ktkn": "ãƒ¡", "color": 0 }, "ã‚‚": { "hrgn": "ã‚‚", "ktkn": "ãƒ¢", "color": 0 }, "ã‚„": { "hrgn": "ã‚„", "ktkn": "ãƒ¤", "color": 0 }, "ã€€": { "hrgn": "ã€€", "ktkn": "ã€€", "color": 0 }, "ã‚†": { "hrgn": "ã‚†", "ktkn": "ãƒ¦", "color": 0 }, "ã‚ˆ": { "hrgn": "ã‚ˆ", "ktkn": "ãƒ¨", "color": 0 }, "ã‚‰": { "hrgn": "ã‚‰", "ktkn": "ãƒ©", "color": 0 }, "ã‚Š": { "hrgn": "ã‚Š", "ktkn": "ãƒª", "color": 0 }, "ã‚‹": { "hrgn": "ã‚‹", "ktkn": "ãƒ«", "color": 0 }, "ã‚Œ": { "hrgn": "ã‚Œ", "ktkn": "ãƒ¬", "color": 0 }, "ã‚": { "hrgn": "ã‚", "ktkn": "ãƒ­", "color": 0 }, "ã‚": { "hrgn": "ã‚", "ktkn": "ãƒ¯", "color": 0 }, "ã‚’": { "hrgn": "ã‚’", "ktkn": "ãƒ²", "color": 0 }, "ã‚“": { "hrgn": "ã‚“", "ktkn": "ãƒ³", "color": 0 }, "ã": { "hrgn": "ã", "ktkn": "ã‚¡", "color": 0 }, "ãƒ": { "hrgn": "ãƒ", "ktkn": "ã‚£", "color": 0 }, "ã…": { "hrgn": "ã…", "ktkn": "ã‚¥", "color": 0 }, "ã‡": { "hrgn": "ã‡", "ktkn": "ã‚§", "color": 0 }, "ã‰": { "hrgn": "ã‰", "ktkn": "ã‚©", "color": 0 }, "ãŒ": { "hrgn": "ãŒ", "ktkn": "ã‚¬", "color": 0 }, "ãŽ": { "hrgn": "ãŽ", "ktkn": "ã‚®", "color": 0 }, "ã": { "hrgn": "ã", "ktkn": "ã‚°", "color": 0 }, "ã’": { "hrgn": "ã’", "ktkn": "ã‚²", "color": 0 }, "ã”": { "hrgn": "ã”", "ktkn": "ã‚´", "color": 0 }, "ã–": { "hrgn": "ã–", "ktkn": "ã‚¶", "color": 0 }, "ã˜": { "hrgn": "ã˜", "ktkn": "ã‚¸", "color": 0 }, "ãš": { "hrgn": "ãš", "ktkn": "ã‚º", "color": 0 }, "ãœ": { "hrgn": "ãœ", "ktkn": "ã‚¼", "color": 0 }, "ãž": { "hrgn": "ãž", "ktkn": "ã‚¾", "color": 0 }, "ã ": { "hrgn": "ã ", "ktkn": "ãƒ€", "color": 0 }, "ã¢": { "hrgn": "ã¢", "ktkn": "ãƒ‚", "color": 0 }, "ã¥": { "hrgn": "ã¥", "ktkn": "ãƒ…", "color": 0 }, "ã§": { "hrgn": "ã§", "ktkn": "ãƒ‡", "color": 0 }, "ã©": { "hrgn": "ã©", "ktkn": "ãƒ‰", "color": 0 }, "ã£": { "hrgn": "ã£", "ktkn": "ãƒƒ", "color": 0 }, "ã°": { "hrgn": "ã°", "ktkn": "ãƒ", "color": 0 }, "ã³": { "hrgn": "ã³", "ktkn": "ãƒ“", "color": 0 }, "ã¶": { "hrgn": "ã¶", "ktkn": "ãƒ–", "color": 0 }, "ã¹": { "hrgn": "ã¹", "ktkn": "ãƒ™", "color": 0 }, "ã¼": { "hrgn": "ã¼", "ktkn": "ãƒœ", "color": 0 }, "ã±": { "hrgn": "ã±", "ktkn": "ãƒ‘", "color": 0 }, "ã´": { "hrgn": "ã´", "ktkn": "ãƒ”", "color": 0 }, "ã·": { "hrgn": "ã·", "ktkn": "ãƒ—", "color": 0 }, "ãº": { "hrgn": "ãº", "ktkn": "ãƒš", "color": 0 }, "ã½": { "hrgn": "ã½", "ktkn": "ãƒ", "color": 0 }, "ã‚ƒ": { "hrgn": "ã‚ƒ", "ktkn": "ãƒ£", "color": 0 }, "ã‚…": { "hrgn": "ã‚…", "ktkn": "ãƒ¥", "color": 0 }, "ã‚‡": { "hrgn": "ã‚‡", "ktkn": "ãƒ§", "color": 0 }, "ãƒ¼": { "hrgn": "ãƒ¼", "ktkn": "ãƒ¼", "color": 0 } };
 var flags = {};
 
 function time() {
     document.getElementById("t1").innerHTML = new Date().toLocaleString();
 }
 
-function submit() {
-    var inputData = $('#input_data').val();
-    sentWords.unshift(inputData)
-    document.getElementById("input").innerHTML = sentWords;
-    $.ajax({
-        type: 'POST',
-        url: '/guess',
-        data: {'guessWord': inputData }
-    }).done(function (response) {
-        $('#result').html(response);
-    }).fail(function () {
-        alert('error!!!');
+function checkWord(inputData) {
+    return new Promise((resolve, reject) => {
+        // å…¥åŠ›ãŒã²ã‚‰ãŒãªãƒ»ã‚«ã‚¿ã‚«ãƒŠã‹åˆ¤å®š
+        $.ajax({
+            type: 'POST',
+            url: '/check',
+            data: { 'word': inputData }
+        }).done(function (res) {
+            $('#response').html(res);
+            var alertText = '';
+            if (res == 0)
+                resolve(true);
+            else {
+                if (res & 1)
+                    alertText += 'ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã«ã‚ã‚‹æ–‡å­—ã®ã¿ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„\n';
+                if (res & 2)
+                    alertText += 'test2\n';
+                if (res & 4)
+                    alertText += 'test4\n';
+                alert(alertText);
+                resolve(false);
+            }
+        }).fail(function () {
+            alert('error!!! (/checkWord)');
+            reject(false);
+        });
     });
+}
+function reflectColor(colors) {
+    return new Promise((resolve) => {
+        console.log(colors);
+        for (var char in colors) {
+            charsJSON[char]['color'] = colors[char]
+        }
+        console.log(charsJSON);
+        resolve(colors);
+    })
+}
+
+async function submit() {
+    const inputData = $('#input_data').val();
+    var valid = await checkWord(inputData);
+    if (valid) {
+        sentWords.unshift(inputData)
+        document.getElementById("input").innerHTML = sentWords;
+        $.ajax({
+            type: 'POST',
+            url: '/guess',
+        }).done(function (res) {
+            resJSON = JSON.parse(res);
+            // else not match
+            console.log(resJSON)
+            reflectColor(resJSON['colors']);
+            $('#result').html(res);
+        }).fail(function () {
+            alert('error!!!');
+        });
+    }
 }
 
 window.addEventListener('load', () => {
     setInterval(time, 1000);
     document.getElementById("t2").innerHTML = window.navigator.userProfile;
+
 })
