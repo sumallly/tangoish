@@ -22,7 +22,7 @@ ktkn_l = list(ktkn_n) + list(ktkn_s)
 base = {}
 
 for i in range(len(hrgn_l)):
-    base[hrgn_l[i]] = {'hrgn':hrgn_l[i], 'ktkn':ktkn_l[i], 'color':00000000}
+    base[hrgn_l[i]] = {'hrgn':hrgn_l[i], 'ktkn':ktkn_l[i], 'color':'y'}
 
 print(json.dumps(base, ensure_ascii=False))#, indent=4))
 
