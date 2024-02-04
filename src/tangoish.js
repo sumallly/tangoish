@@ -65,8 +65,15 @@ function reflectColor(guessWord, colors) {
     })
 }
 
+function clickKeyboard(e) {
+    var input = document.getElementById('input_data');
+    input.value = input.value + e.target.id;
+}
+
 async function submit() {
     const guessWord = $('#input_data').val();
+    console.log(document.getElementById('input_data').value);
+    document.getElementById('input_data').value = '';
     var hrgn = await checkWord(guessWord);
     var resJSON;
     console.log('hrgn',hrgn);
@@ -104,6 +111,7 @@ window.addEventListener('load', () => {
             key.classList.add('key_bt');
             key.classList.add('jg_' + charsJSON[char]['color']);
             key.id = char;
+            key.addEventListener('click', clickKeyboard);
             keyboard.appendChild(key);
         }
         keyboard.appendChild(document.createElement('br'));

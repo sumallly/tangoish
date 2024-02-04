@@ -33,9 +33,9 @@ def checkWord():
 @app.route('/guess', methods=['POST'])
 def coloring():
     # hit blow error
-    num_char = 5
     right_word = 'しゃんぷー'
     guess_word = requests.pop(str(request.remote_addr))
+    num_char = len(guess_word)
     right_list = list(right_word)
     guess_list = list(guess_word)
     judge = ['w' for i in range(num_char)]
