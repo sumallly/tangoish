@@ -15,9 +15,26 @@ var flags = {};
 var alertText = '';
 var historyPosCnt = 0;
 var historyPosRow = 0;
+const wordLen = 6;
+var roomid;
 
 function time() {
     document.getElementById("t1").innerHTML = new Date().toLocaleString();
+}
+
+// 定期的に聞いてそのたびに人数を集計
+// オールヒットでユーザIDも通知
+
+function joining() {
+    $.ajax({
+        type: 'POST',
+        url: '/joining',
+        data: { 'roomid': roomid }
+    }).done(function (res) {
+        document.getElementById('roomNum').textContent = 'people : ' + res
+    }).fail(function () {
+        alert('error!!! (/joining)');
+    });
 }
 
 function checkWord(inputData) {
@@ -71,7 +88,7 @@ async function reflectColor(guessWord, colors) {
 
 function reflectInputToHistory() {
     var input = document.getElementById('input_data');
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < wordLen; i++) {
         var historyUnit = document.getElementById('history_' + historyPosRow.toString() + '_' + i.toString());
         if (i < input.value.length)
             historyUnit.textContent = input.value[i];
@@ -85,7 +102,7 @@ function addHistoryRow() {
     var history = document.querySelector('#history');
     var row = document.createElement('div');
     row.classList.add('history_row');
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < wordLen; i++) {
         var char = document.createElement('button');
         char.textContent = '';
         char.classList.add('history_char');
@@ -174,7 +191,7 @@ window.addEventListener('load', () => {
     var history = document.querySelector('#history');
     var row = document.createElement('div');
     row.classList.add('history_row');
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < wordLen; i++) {
         var char = document.createElement('button');
         char.textContent = '';
         char.classList.add('history_char');
@@ -225,4 +242,10 @@ window.addEventListener('load', () => {
             keyboard.appendChild(blank);
         }
     }
+
+    roomid = prompt('enter room number', '192');
+    document.getElementById('roomID').textContent = roomid;
+    document.getElementById('userName').textContent = prompt('enter user name', 'sumallly');
+    joining();
+    setInterval(joining, 5000);
 })
