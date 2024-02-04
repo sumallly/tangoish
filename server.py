@@ -19,21 +19,28 @@ def index():
 @app.route('/joining', methods=['POST'])
 def joining():
     user_ip = str(request.remote_addr)
-    room_id = request.form['roomid']
+    room_id = request.form['roomID']
     now = time.time()
     if not room_id in rooms:
-        rooms[room_id] = {}
+        rooms[room_id] = {'users':{},'hitters':['hitters:']}
     else:
-        rooms[room_id][user_ip] = now
+        rooms[room_id]['users'][user_ip] = now
     
     exitUsers = []
-    for user_ip, time_stamp in rooms[room_id].items():
+    for user_ip, time_stamp in rooms[room_id]['users'].items():
         if time_stamp + 8 < now:
             exitUsers.append(user_ip)
     for user_ip in exitUsers:
         rooms[room_id].pop(user_ip, None)
     print(rooms)
-    return str(len(rooms[room_id]))
+    return json.dumps({'roomNum':len(rooms[room_id]['users']), 'hitters':rooms[room_id]['hitters']})
+
+@app.route('/matching', methods=['POST'])
+def matching():
+    room_id = request.form['roomID']
+    user_name = request.form['userName']
+    rooms[room_id]['hitters'].append('No.'+ str(len(rooms[room_id]['hitters'])) + ': ' + user_name)
+    return '0'
 
 @app.route('/check', methods=['POST'])
 def checkWord():

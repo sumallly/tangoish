@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
 
 body {
-    background-color: #F5F6F6;
+    background-color: #E1EFF2;
     font-family: 'Noto Sans JP';
 }
 
@@ -31,7 +31,6 @@ body {
 .history_char {
     width: min(60px, calc(1em + 3vw));
     aspect-ratio: 1;
-    background: #FFFFFF;
     border: 0.5vw solid #AEC5E8;
     font-size: calc(0.5em + 3vw);
     text-align: center;
@@ -103,7 +102,7 @@ body {
 #roomID {
     position: absolute;
     top: 10px;
-    left 10px;
+    left: 10px;
 }
 
 #userName {
@@ -114,6 +113,12 @@ body {
 
 #roomNum {
     position: absolute;
-    top: calc(10px + 1.5em);
-    left 10px;
+    top: 10px;
+    left: 50px;
+}
+
+#hitters {
+    position: absolute;
+    top: calc(10px + 2em);
+    left: 10px;
 }

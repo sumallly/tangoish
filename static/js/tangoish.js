@@ -14,26 +14,36 @@ var charsJSON = { "あ": { "hrgn": "あ", "ktkn": "ア", "color": "y" }, "い": 
 var flags = {};
 var alertText = '';
 var historyPosCnt = 0;
-var historyPosRow = 0;
+var historyPosRow = -1;
 const wordLen = 6;
-var roomid;
+var roomID, userName;
 
 function time() {
     document.getElementById("t1").innerHTML = new Date().toLocaleString();
 }
 
-// 定期的に聞いてそのたびに人数を集計
-// オールヒットでユーザIDも通知
-
 function joining() {
     $.ajax({
         type: 'POST',
         url: '/joining',
-        data: { 'roomid': roomid }
+        data: { 'roomID': roomID }
     }).done(function (res) {
-        document.getElementById('roomNum').textContent = 'people : ' + res
+        var resJSON = JSON.parse(res);
+        document.getElementById('roomNum').textContent = 'people : ' + resJSON['roomNum']
+        document.getElementById('hitters').innerHTML = resJSON['hitters'].toString().replace(/,/g, '<br>');
     }).fail(function () {
         alert('error!!! (/joining)');
+    });
+}
+
+function matching() {
+    $.ajax({
+        type: 'POST',
+        url: '/matching',
+        data: { 'roomID': roomID , 'userName': userName}
+    }).done(function (res) {
+    }).fail(function () {
+        alert('error!!! (/matching)');
     });
 }
 
@@ -82,7 +92,7 @@ async function reflectColor(guessWord, colors) {
 
         var historyUnit = document.getElementById('history_' + (historyPosRow - 1).toString() + '_' + i.toString());
         historyUnit.classList.add('jg_' + charsJSON[char]['color']);
-        await sleep(1); i += 1;
+        await sleep(0.5); i += 1;
     }
 }
 
@@ -106,6 +116,7 @@ function addHistoryRow() {
         var char = document.createElement('button');
         char.textContent = '';
         char.classList.add('history_char');
+        char.classList.add('jg_y');
         char.id = 'history_' + historyPosRow.toString() + '_' + i.toString();
         row.appendChild(char);
     }
@@ -175,6 +186,9 @@ async function submit() {
         url: '/guess',
     }).done(function (res) {
         resJSON = JSON.parse(res);
+        if (resJSON['match'] == 1)
+            console.log('match!');
+            matching();
         $('#result').html(res);
     }).fail(function () {
         alert('error!!!');
@@ -188,17 +202,7 @@ window.addEventListener('load', () => {
     document.getElementById("t2").innerHTML = window.navigator.userProfile;
 
     // draw first row of history
-    var history = document.querySelector('#history');
-    var row = document.createElement('div');
-    row.classList.add('history_row');
-    for (var i = 0; i < wordLen; i++) {
-        var char = document.createElement('button');
-        char.textContent = '';
-        char.classList.add('history_char');
-        char.id = 'history_0_' + i.toString();
-        row.appendChild(char);
-    }
-    history.appendChild(row);
+    addHistoryRow();
 
     // draw software keyboard
     var keyboard = document.querySelector('#keyboard');
@@ -243,9 +247,10 @@ window.addEventListener('load', () => {
         }
     }
 
-    roomid = prompt('enter room number', '192');
-    document.getElementById('roomID').textContent = roomid;
-    document.getElementById('userName').textContent = prompt('enter user name', 'sumallly');
+    roomID = prompt('enter room number', '192');
+    document.getElementById('roomID').textContent = roomID;
+    userName = prompt('enter user name', 'sumallly');
+    document.getElementById('userName').textContent = userName;
     joining();
     setInterval(joining, 5000);
 })
