@@ -95,6 +95,19 @@ function addHistoryRow() {
     history.appendChild(row);
 }
 
+function swapKeyboardCharType() {
+    var currentType = ('あ' == document.getElementById('あ').textContent);
+    for (var i in keyLayout) {
+        for (var j in keyLayout[i]) {
+            var key = document.getElementById(keyLayout[i][j]);
+            if (currentType)
+                key.textContent = charsJSON[keyLayout[i][j]]['ktkn'];
+            else
+                key.textContent = charsJSON[keyLayout[i][j]]['hrgn'];
+        }
+    }
+}
+
 function clickKeyboard(e) {
     var input = document.getElementById('input_data');
     if (e.target.id != '　')
@@ -108,6 +121,7 @@ function clickKeyboardHeader(e) {
             // give up process
             break;
         case 'swap':
+            swapKeyboardCharType();
             break;
         case 'clear':
             document.getElementById('input_data').value = '';
