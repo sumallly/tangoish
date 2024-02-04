@@ -1,5 +1,44 @@
+body {
+    background-color: #F5F6F6;
+}
+
+#header {
+    text-align: center;
+}
+
+#title {
+    display: inline-block;
+    _display: inline;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0.5em 0px 0px 0px;
+}
+
+.blank {
+    padding: 10px 0px 0px 0px
+}
+
+#history {
+    text-align: center;
+    margin: 2em;
+}
+
+.history_char {
+    width: calc(1em + 3vw);
+    aspect-ratio: 1;
+    background: #FFFFFF;
+    border: 0.5vw solid #A7D28D;
+    font-size: calc(0.5em + 3vw);
+    text-align: center;
+    margin: 0.5%;
+    padding: 0px 0px;
+    border-radius: 100%;
+    line-height: 1em;
+}
+
 #keyboard {
-    max-width: 800px;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .key_head {
@@ -9,6 +48,7 @@
     padding: 2px;
     margin: 0.5%;
     border-radius: 12px;
+    cursor: pointer;
 }
 
 .key_bt {
@@ -18,38 +58,39 @@
     padding: 2px;
     margin: 0.5%;
     border-radius: 12px;
+    cursor: pointer;
 }
 
 .jg_y {
     background: #FFFFFF;
 }
 
-    .jg_y:hover {
-        background: #EFEFEF;
-    }
+.jg_y:hover {
+    background: #EFEFEF;
+}
 
 .jg_h {
     background: #A7D28D;
 }
 
-    .jg_h:hover {
-        background: #97C27D;
-    }
+.jg_h:hover {
+    background: #97C27D;
+}
 
 .jg_b {
     background: #FCC948;
 }
 
-    .jg_b:hover {
-        background: #ECB938;
-    }
+.jg_b:hover {
+    background: #ECB938;
+}
 
 .jg_w {
     color: #FFFFFF;
     background: #808080;
 }
 
-    .jg_w:hover {
-        color: #FFFFFF;
-        background: #707070;
-    }
+.jg_w:hover {
+    color: #FFFFFF;
+    background: #707070;
+}

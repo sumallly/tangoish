@@ -13,6 +13,8 @@ var sentWords = [];
 var charsJSON = { "あ": { "hrgn": "あ", "ktkn": "ア", "color": "y" }, "い": { "hrgn": "い", "ktkn": "イ", "color": "y" }, "う": { "hrgn": "う", "ktkn": "ウ", "color": "y" }, "え": { "hrgn": "え", "ktkn": "エ", "color": "y" }, "お": { "hrgn": "お", "ktkn": "オ", "color": "y" }, "か": { "hrgn": "か", "ktkn": "カ", "color": "y" }, "き": { "hrgn": "き", "ktkn": "キ", "color": "y" }, "く": { "hrgn": "く", "ktkn": "ク", "color": "y" }, "け": { "hrgn": "け", "ktkn": "ケ", "color": "y" }, "こ": { "hrgn": "こ", "ktkn": "コ", "color": "y" }, "さ": { "hrgn": "さ", "ktkn": "サ", "color": "y" }, "し": { "hrgn": "し", "ktkn": "シ", "color": "y" }, "す": { "hrgn": "す", "ktkn": "ス", "color": "y" }, "せ": { "hrgn": "せ", "ktkn": "セ", "color": "y" }, "そ": { "hrgn": "そ", "ktkn": "ソ", "color": "y" }, "た": { "hrgn": "た", "ktkn": "タ", "color": "y" }, "ち": { "hrgn": "ち", "ktkn": "チ", "color": "y" }, "つ": { "hrgn": "つ", "ktkn": "ツ", "color": "y" }, "て": { "hrgn": "て", "ktkn": "テ", "color": "y" }, "と": { "hrgn": "と", "ktkn": "ト", "color": "y" }, "な": { "hrgn": "な", "ktkn": "ナ", "color": "y" }, "に": { "hrgn": "に", "ktkn": "ニ", "color": "y" }, "ぬ": { "hrgn": "ぬ", "ktkn": "ヌ", "color": "y" }, "ね": { "hrgn": "ね", "ktkn": "ネ", "color": "y" }, "の": { "hrgn": "の", "ktkn": "ノ", "color": "y" }, "は": { "hrgn": "は", "ktkn": "ハ", "color": "y" }, "ひ": { "hrgn": "ひ", "ktkn": "ヒ", "color": "y" }, "ふ": { "hrgn": "ふ", "ktkn": "フ", "color": "y" }, "へ": { "hrgn": "へ", "ktkn": "ヘ", "color": "y" }, "ほ": { "hrgn": "ほ", "ktkn": "ホ", "color": "y" }, "ま": { "hrgn": "ま", "ktkn": "マ", "color": "y" }, "み": { "hrgn": "み", "ktkn": "ミ", "color": "y" }, "む": { "hrgn": "む", "ktkn": "ム", "color": "y" }, "め": { "hrgn": "め", "ktkn": "メ", "color": "y" }, "も": { "hrgn": "も", "ktkn": "モ", "color": "y" }, "や": { "hrgn": "や", "ktkn": "ヤ", "color": "y" }, "　": { "hrgn": "　", "ktkn": "　", "color": "y" }, "ゆ": { "hrgn": "ゆ", "ktkn": "ユ", "color": "y" }, "よ": { "hrgn": "よ", "ktkn": "ヨ", "color": "y" }, "ら": { "hrgn": "ら", "ktkn": "ラ", "color": "y" }, "り": { "hrgn": "り", "ktkn": "リ", "color": "y" }, "る": { "hrgn": "る", "ktkn": "ル", "color": "y" }, "れ": { "hrgn": "れ", "ktkn": "レ", "color": "y" }, "ろ": { "hrgn": "ろ", "ktkn": "ロ", "color": "y" }, "わ": { "hrgn": "わ", "ktkn": "ワ", "color": "y" }, "を": { "hrgn": "を", "ktkn": "ヲ", "color": "y" }, "ん": { "hrgn": "ん", "ktkn": "ン", "color": "y" }, "ぁ": { "hrgn": "ぁ", "ktkn": "ァ", "color": "y" }, "ぃ": { "hrgn": "ぃ", "ktkn": "ィ", "color": "y" }, "ぅ": { "hrgn": "ぅ", "ktkn": "ゥ", "color": "y" }, "ぇ": { "hrgn": "ぇ", "ktkn": "ェ", "color": "y" }, "ぉ": { "hrgn": "ぉ", "ktkn": "ォ", "color": "y" }, "が": { "hrgn": "が", "ktkn": "ガ", "color": "y" }, "ぎ": { "hrgn": "ぎ", "ktkn": "ギ", "color": "y" }, "ぐ": { "hrgn": "ぐ", "ktkn": "グ", "color": "y" }, "げ": { "hrgn": "げ", "ktkn": "ゲ", "color": "y" }, "ご": { "hrgn": "ご", "ktkn": "ゴ", "color": "y" }, "ざ": { "hrgn": "ざ", "ktkn": "ザ", "color": "y" }, "じ": { "hrgn": "じ", "ktkn": "ジ", "color": "y" }, "ず": { "hrgn": "ず", "ktkn": "ズ", "color": "y" }, "ぜ": { "hrgn": "ぜ", "ktkn": "ゼ", "color": "y" }, "ぞ": { "hrgn": "ぞ", "ktkn": "ゾ", "color": "y" }, "だ": { "hrgn": "だ", "ktkn": "ダ", "color": "y" }, "ぢ": { "hrgn": "ぢ", "ktkn": "ヂ", "color": "y" }, "づ": { "hrgn": "づ", "ktkn": "ヅ", "color": "y" }, "で": { "hrgn": "で", "ktkn": "デ", "color": "y" }, "ど": { "hrgn": "ど", "ktkn": "ド", "color": "y" }, "っ": { "hrgn": "っ", "ktkn": "ッ", "color": "y" }, "ば": { "hrgn": "ば", "ktkn": "バ", "color": "y" }, "び": { "hrgn": "び", "ktkn": "ビ", "color": "y" }, "ぶ": { "hrgn": "ぶ", "ktkn": "ブ", "color": "y" }, "べ": { "hrgn": "べ", "ktkn": "ベ", "color": "y" }, "ぼ": { "hrgn": "ぼ", "ktkn": "ボ", "color": "y" }, "ぱ": { "hrgn": "ぱ", "ktkn": "パ", "color": "y" }, "ぴ": { "hrgn": "ぴ", "ktkn": "ピ", "color": "y" }, "ぷ": { "hrgn": "ぷ", "ktkn": "プ", "color": "y" }, "ぺ": { "hrgn": "ぺ", "ktkn": "ペ", "color": "y" }, "ぽ": { "hrgn": "ぽ", "ktkn": "ポ", "color": "y" }, "ゃ": { "hrgn": "ゃ", "ktkn": "ャ", "color": "y" }, "ゅ": { "hrgn": "ゅ", "ktkn": "ュ", "color": "y" }, "ょ": { "hrgn": "ょ", "ktkn": "ョ", "color": "y" }, "ー": { "hrgn": "ー", "ktkn": "ー", "color": "y" } };
 var flags = {};
 var alertText = '';
+var historyPosCnt = 0;
+var historyPosRow = 0;
 
 function time() {
     document.getElementById("t1").innerHTML = new Date().toLocaleString();
@@ -30,9 +32,7 @@ function checkWord(inputData) {
             var resJSON = JSON.parse(res);
             evalNum = resJSON['eval'];
             var alertText = '';
-            console.log(typeof (evalNum));
             if (evalNum == 0) {
-                console.log('eval 0');
                 resolve(resJSON['hrgn']);
             }
             else {
@@ -62,14 +62,44 @@ async function reflectColor(guessWord, colors) {
         key.classList.replace('jg_y', 'jg_' + charsJSON[char]['color']);
         key.classList.replace('jg_w', 'jg_' + charsJSON[char]['color']);
         key.classList.replace('jg_b', 'jg_' + charsJSON[char]['color']);
-        await sleep(1);  i += 1;
+
+        var historyUnit = document.getElementById('history_' + (historyPosRow - 1).toString() + '_' + i.toString());
+        historyUnit.classList.add('jg_' + charsJSON[char]['color']);
+        await sleep(1); i += 1;
     }
+}
+
+function reflectInputToHistory() {
+    var input = document.getElementById('input_data');
+    for (var i = 0; i < 5; i++) {
+        var historyUnit = document.getElementById('history_' + historyPosRow.toString() + '_' + i.toString());
+        if (i < input.value.length)
+            historyUnit.textContent = input.value[i];
+        else
+            historyUnit.textContent = '　';
+    }
+}
+
+function addHistoryRow() {
+    historyPosRow += 1;
+    var history = document.querySelector('#history');
+    var row = document.createElement('div');
+    row.classList.add('history_row');
+    for (var i = 0; i < 5; i++) {
+        var char = document.createElement('button');
+        char.textContent = '';
+        char.classList.add('history_char');
+        char.id = 'history_' + historyPosRow.toString() + '_' + i.toString();
+        row.appendChild(char);
+    }
+    history.appendChild(row);
 }
 
 function clickKeyboard(e) {
     var input = document.getElementById('input_data');
-    if(input.value != '　')
+    if (e.target.id != '　')
         input.value = input.value + e.target.id;
+    reflectInputToHistory();
 }
 
 function clickKeyboardHeader(e) {
@@ -78,29 +108,32 @@ function clickKeyboardHeader(e) {
             // give up process
             break;
         case 'swap':
-
+            break;
         case 'clear':
             document.getElementById('input_data').value = '';
+            reflectInputToHistory();
+            break;
         case 'delete':
             input = document.getElementById('input_data');
             input.value = input.value.slice(0, -1);
+            reflectInputToHistory();
+            break;
         case 'submit':
+            addHistoryRow();
             submit();
+            break;
         default:
-            console.log('called default : ' + e.target.id);
+            break;
     }
-    console.log(e.target.id);
 }
 
 async function submit() {
     const guessWord = $('#input_data').val();
-    console.log(document.getElementById('input_data').value);
     document.getElementById('input_data').value = '';
     var hrgn = await checkWord(guessWord);
     var resJSON;
     console.log('hrgn',hrgn);
     if (!hrgn) {
-        console.log('resolve null');
         alert(alertText);
         return 0;
     }
@@ -123,7 +156,23 @@ window.addEventListener('load', () => {
     setInterval(time, 1000);
     document.getElementById("t2").innerHTML = window.navigator.userProfile;
 
+    // draw first row of history
+    var history = document.querySelector('#history');
+    var row = document.createElement('div');
+    row.classList.add('history_row');
+    for (var i = 0; i < 5; i++) {
+        var char = document.createElement('button');
+        char.textContent = '';
+        char.classList.add('history_char');
+        char.id = 'history_0_' + i.toString();
+        row.appendChild(char);
+    }
+    history.appendChild(row);
+
+    // draw software keyboard
     var keyboard = document.querySelector('#keyboard');
+    row = document.createElement('div');
+    row.classList.add('keyboard_row');
     var keyboardHeaderTextContent = ['降参', 'あ/ア', 'clear', 'del', 'submit'];
     var keyboardHeaderId = ['giveup', 'swap', 'clear', 'delete', 'submit'];
     for (var i = 0; i < 5; i++) {
@@ -133,11 +182,16 @@ window.addEventListener('load', () => {
         key.classList.add('key_head', 'jg_y');
         key.id = keyboardHeaderId[i];
         key.addEventListener('click', clickKeyboardHeader);
-        keyboard.appendChild(key);
+        row.appendChild(key);
     }
-    keyboard.appendChild(document.createElement('br'));
-    keyboard.appendChild(document.createElement('br'));
+    keyboard.appendChild(row)
+
+    var blank = document.createElement('div', );
+    blank.classList.add('blank');
+    keyboard.appendChild(blank);
     for (var i in keyLayout) {
+        row = document.createElement('div');
+        row.classList.add('keyboard_row');
         for (var j in keyLayout[i]) {
             var char = keyLayout[i][j];
             var key = document.createElement('button');
@@ -147,11 +201,14 @@ window.addEventListener('load', () => {
             key.classList.add('jg_' + charsJSON[char]['color']);
             key.id = char;
             key.addEventListener('click', clickKeyboard);
-            keyboard.appendChild(key);
+            row.appendChild(key);
         }
-        keyboard.appendChild(document.createElement('br'));
+        keyboard.appendChild(row);
+
         if (i == 4) {
-            keyboard.appendChild(document.createElement('br'));
+            var blank = document.createElement('div',);
+            blank.classList.add('blank');
+            keyboard.appendChild(blank);
         }
     }
 })
