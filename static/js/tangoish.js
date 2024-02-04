@@ -52,22 +52,44 @@ function checkWord(inputData) {
     });
 }
 
-function reflectColor(guessWord, colors) {
-    return new Promise((resolve) => {
-        guessWord.forEach(function (char, i) {
-            charsJSON[char]['color'] = colors[i];
-            var key = document.getElementById(char)
-            key.classList.replace('jg_y', 'jg_' + charsJSON[char]['color']);
-            key.classList.replace('jg_w', 'jg_' + charsJSON[char]['color']);
-            key.classList.replace('jg_b', 'jg_' + charsJSON[char]['color']);
-        })
-        resolve(colors);
-    })
+const sleep = (second) => new Promise(resolve => setTimeout(resolve, second * 1000))
+
+async function reflectColor(guessWord, colors) {
+    var i = 0;
+    for (const char of guessWord) {
+        charsJSON[char]['color'] = colors[i];
+        var key = document.getElementById(char)
+        key.classList.replace('jg_y', 'jg_' + charsJSON[char]['color']);
+        key.classList.replace('jg_w', 'jg_' + charsJSON[char]['color']);
+        key.classList.replace('jg_b', 'jg_' + charsJSON[char]['color']);
+        await sleep(1);  i += 1;
+    }
 }
 
 function clickKeyboard(e) {
     var input = document.getElementById('input_data');
-    input.value = input.value + e.target.id;
+    if(input.value != '　')
+        input.value = input.value + e.target.id;
+}
+
+function clickKeyboardHeader(e) {
+    switch (e.target.id) {
+        case 'giveup':
+            // give up process
+            break;
+        case 'swap':
+
+        case 'clear':
+            document.getElementById('input_data').value = '';
+        case 'delete':
+            input = document.getElementById('input_data');
+            input.value = input.value.slice(0, -1);
+        case 'submit':
+            submit();
+        default:
+            console.log('called default : ' + e.target.id);
+    }
+    console.log(e.target.id);
 }
 
 async function submit() {
@@ -94,14 +116,27 @@ async function submit() {
         alert('error!!!');
     });
     // else not match
-    ret = await reflectColor(hrgn, resJSON['colors']);
+    ret = reflectColor(hrgn, resJSON['colors']);
 }
 
 window.addEventListener('load', () => {
     setInterval(time, 1000);
     document.getElementById("t2").innerHTML = window.navigator.userProfile;
 
-    var keyboard = document.querySelector('.keyboard');
+    var keyboard = document.querySelector('#keyboard');
+    var keyboardHeaderTextContent = ['降参', 'あ/ア', 'clear', 'del', 'submit'];
+    var keyboardHeaderId = ['giveup', 'swap', 'clear', 'delete', 'submit'];
+    for (var i = 0; i < 5; i++) {
+        var key = document.createElement('button');
+        key.type = 'button';
+        key.textContent = keyboardHeaderTextContent[i];
+        key.classList.add('key_head', 'jg_y');
+        key.id = keyboardHeaderId[i];
+        key.addEventListener('click', clickKeyboardHeader);
+        keyboard.appendChild(key);
+    }
+    keyboard.appendChild(document.createElement('br'));
+    keyboard.appendChild(document.createElement('br'));
     for (var i in keyLayout) {
         for (var j in keyLayout[i]) {
             var char = keyLayout[i][j];
@@ -115,5 +150,8 @@ window.addEventListener('load', () => {
             keyboard.appendChild(key);
         }
         keyboard.appendChild(document.createElement('br'));
+        if (i == 4) {
+            keyboard.appendChild(document.createElement('br'));
+        }
     }
 })

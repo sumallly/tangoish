@@ -3,46 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale =1">
     <title>ことのはたんごish</title>
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="static/img/icon.png">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="src/tangoish.js"></script>
-    <style>
-        .key_bt {
-            width: 3em;
-            height: 3em;
-            font-size: large;
-            padding: 2px;
-            margin: 3px;
-            border-radius: 12px;
-        }
-        .jg_y {
-            background: #FFFFFF;
-        }
-        .jg_y:hover {
-            background: #EFEFEF;
-        }
-        .jg_h {
-            background: #A7D28D;
-        }
-        .jg_h:hover {
-            background: #97C27D;
-        }
-        .jg_b {
-            background: #FCC948;
-        }
-        .jg_b:hover {
-            background: #ECB938;
-        }
-        .jg_w {
-            color: #FFFFFF;
-            background: #808080;
-        }
-        .jg_w:hover {
-            color: #FFFFFF;
-            background: #707070;
-        }
-    </style>
+    <script src="static/js/tangoish.js"></script>
+    <link rel="stylesheet" href="static/css/style.css" />
 </head>
 
 <body>
@@ -54,12 +20,12 @@
     <input type="hidden" id="input_data">
     <button type="button" onclick="submit()">Submit</button>
     <br><br>------------------------------<br><br>
+    <div id='keyboard'></div>
+    <br><br>------------------------------<br><br>
     input : <div id="input" style="display: inline-block; _display: inline;"></div>
     <br>
     return :
     <div id="response"></div>
     <div id="result"></div>
-    <br><br>------------------------------<br><br>
-    <div class='keyboard'></div>
 </body>
 </html>

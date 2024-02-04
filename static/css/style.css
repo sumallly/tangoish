@@ -1,0 +1,55 @@
+#keyboard {
+    max-width: 800px;
+}
+
+.key_head {
+    width: 19%;
+    aspect-ratio: 2;
+    font-size: calc(0.5em + 2.5vw);
+    padding: 2px;
+    margin: 0.5%;
+    border-radius: 12px;
+}
+
+.key_bt {
+    width: 9%;
+    aspect-ratio: 1;
+    font-size: calc(0.5em + 3vw);
+    padding: 2px;
+    margin: 0.5%;
+    border-radius: 12px;
+}
+
+.jg_y {
+    background: #FFFFFF;
+}
+
+    .jg_y:hover {
+        background: #EFEFEF;
+    }
+
+.jg_h {
+    background: #A7D28D;
+}
+
+    .jg_h:hover {
+        background: #97C27D;
+    }
+
+.jg_b {
+    background: #FCC948;
+}
+
+    .jg_b:hover {
+        background: #ECB938;
+    }
+
+.jg_w {
+    color: #FFFFFF;
+    background: #808080;
+}
+
+    .jg_w:hover {
+        color: #FFFFFF;
+        background: #707070;
+    }
