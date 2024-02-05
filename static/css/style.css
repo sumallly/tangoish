@@ -31,7 +31,7 @@ body {
 .history_char {
     width: min(60px, calc(1em + 3vw));
     aspect-ratio: 1;
-    border: 0.5vw solid #AEC5E8;
+    border: 0.15em solid #AEC5E8;
     font-size: calc(0.5em + 3vw);
     text-align: center;
     margin: 0.5%;
@@ -99,10 +99,19 @@ body {
     background: #707070;
 }
 
-#roomID {
+#roomProperty {
     position: absolute;
     top: 10px;
     left: 10px;
+    max-width: calc(50% - 200px);
+}
+
+#roomID {
+    display: inline-block;
+}
+
+#roomNum {
+    display: inline-block;
 }
 
 #userName {
@@ -111,14 +120,6 @@ body {
     right: 10px;
 }
 
-#roomNum {
-    position: absolute;
-    top: 10px;
-    left: 50px;
-}
-
-#hitters {
-    position: absolute;
-    top: calc(10px + 2em);
-    left: 10px;
+.propertyBlank {
+    margin:8px 0px 0px 0px
 }

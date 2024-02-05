@@ -44,8 +44,9 @@ function joining() {
         data: { 'roomID': roomID }
     }).done(function (res) {
         var resJSON = JSON.parse(res);
-        document.getElementById('roomNum').textContent = 'people : ' + resJSON['roomNum']
-        document.getElementById('hitters').innerHTML = resJSON['hitters'].toString().replace(/,/g, '<br>');
+        document.getElementById('roomNum').textContent = 'people:' + resJSON['roomNum'];
+        hittersList = resJSON['hitters'].toString().replace(/,/g, '<br>');
+        document.getElementById('hitters').innerHTML = hittersList;
     }).fail(function () {
         alert('error!!! (/joining)');
     });
@@ -74,6 +75,7 @@ function checkWord(inputData) {
         }).done(function (res) {
             $('#response').html(res);
             var resJSON = JSON.parse(res);
+            console.log(resJSON);
             evalNum = resJSON['eval'];
             var alertText = '';
             if (evalNum == 0) {
@@ -87,6 +89,7 @@ function checkWord(inputData) {
                     alertText += 'test2\n';
                 if (evalNum & 4)
                     alertText += 'test4\n';
+                alert(alertText);
                 resolve(null);
             }
         }).fail(function () {
@@ -96,9 +99,39 @@ function checkWord(inputData) {
     });
 }
 
+async function guess() {
+    const guessWord = $('#input_data').val();
+    document.getElementById('input_data').value = '';
+    var hrgn = await checkWord(guessWord);
+    console.log('hrgn', hrgn);
+    if (!hrgn) {
+        return 0;
+    }
+    sentWords.unshift(guessWord)
+    document.getElementById("input").innerHTML = sentWords;
+    await $.ajax({
+        type: 'POST',
+        url: '/guess',
+        data: { 'roomID': roomID }
+    }).done(function (res) {
+        var resJSON = JSON.parse(res);
+        var shift = 0;
+        if (resJSON['match'] == 1) {
+            shift = 1;
+            matching();
+        } else {
+            addHistoryRow();
+        }
+        ret = reflectColor(hrgn, resJSON['colors'], shift);
+        $('#result').html(res);
+    }).fail(function () {
+        alert('error!!!');
+    });
+}
+
 const sleep = (second) => new Promise(resolve => setTimeout(resolve, second * 1000))
 
-async function reflectColor(guessWord, colors) {
+async function reflectColor(guessWord, colors, shift) {
     var i = 0;
     for (const char of guessWord) {
         charsJSON[char]['color'] = colors[i];
@@ -107,7 +140,7 @@ async function reflectColor(guessWord, colors) {
         key.classList.replace('jg_w', 'jg_' + charsJSON[char]['color']);
         key.classList.replace('jg_b', 'jg_' + charsJSON[char]['color']);
 
-        var historyUnit = document.getElementById('history_' + (historyPosRow - 1).toString() + '_' + i.toString());
+        var historyUnit = document.getElementById('history_' + (historyPosRow - 1 + shift).toString() + '_' + i.toString());
         historyUnit.classList.add('jg_' + charsJSON[char]['color']);
         await sleep(0.5); i += 1;
     }
@@ -187,49 +220,22 @@ function clickKeyboardHeader(e) {
             reflectInputToHistory();
             break;
         case 'submit':
-            addHistoryRow();
-            submit();
+            guess();
             break;
         default:
             break;
     }
 }
 
-async function submit() {
-    const guessWord = $('#input_data').val();
-    document.getElementById('input_data').value = '';
-    var hrgn = await checkWord(guessWord);
-    var resJSON;
-    console.log('hrgn',hrgn);
-    if (!hrgn) {
-        alert(alertText);
-        return 0;
-    }
-    sentWords.unshift(guessWord)
-    document.getElementById("input").innerHTML = sentWords;
-    await $.ajax({
-        type: 'POST',
-        url: '/guess',
-    }).done(function (res) {
-        resJSON = JSON.parse(res);
-        if (resJSON['match'] == 1) {
-            console.log('match!');
-            matching();
-        }
-        $('#result').html(res);
-    }).fail(function () {
-        alert('error!!!');
-    });
-    // else not match
-    ret = reflectColor(hrgn, resJSON['colors']);
-}
-
 window.addEventListener('load', () => {
+    roomID = prompt('enter room number (ex. "1" or "pokemon1")\ncan decide word length by hyphen and single digit (ex. "seed-5")', '1');
+    document.getElementById('roomID').textContent = 'roomID:'+roomID + '　';
+    join();
+    userName = prompt('enter user name', '');
+    document.getElementById('userName').textContent = userName
+
     setInterval(time, 1000);
     document.getElementById("t2").innerHTML = window.navigator.userProfile;
-
-    // draw first row of history
-    addHistoryRow();
 
     // draw software keyboard
     var keyboard = document.querySelector('#keyboard');
@@ -274,10 +280,6 @@ window.addEventListener('load', () => {
         }
     }
 
-    roomID = prompt('enter room number', '1');
-    document.getElementById('roomID').textContent = roomID;
-    userName = prompt('enter user name', '');
-    document.getElementById('userName').textContent = userName;
     joining();
     setInterval(joining, 5000);
 })
