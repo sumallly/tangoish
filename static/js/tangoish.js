@@ -15,12 +15,26 @@ var flags = {};
 var alertText = '';
 var historyPosCnt = 0;
 var historyPosRow = -1;
-const wordLen = 6;
+var wordLen = 6;
 var matched = false;
 var roomID, userName;
 
 function time() {
     document.getElementById("t1").innerHTML = new Date().toLocaleString();
+}
+
+function join() {
+    $.ajax({
+        type: 'POST',
+        url: '/join',
+        data: { 'roomID': roomID }
+    }).done(function (res) {
+        var resJSON = JSON.parse(res);
+        wordLen = resJSON['answerLen'];
+        addHistoryRow();
+    }).fail(function () {
+        alert('error!!! (/join)');
+    });
 }
 
 function joining() {
