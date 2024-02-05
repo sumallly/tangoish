@@ -4,7 +4,9 @@ import datetime, json, time
 
 requests = {}
 rooms = {}
-allowChars = list('あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんぁぃぅぇぉがぎぐげござじずぜぞだぢづでどっばびぶべぼぱぴぷぺぽゃゅょーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォガギグゲゴザジズゼゾダヂヅデドッバビブベボパピプペポャュョー')
+room_scan_prev = 0.0
+room_scan_cycle = 5.0
+allow_chars = list('あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんぁぃぅぇぉがぎぐげござじずぜぞだぢづでどっばびぶべぼぱぴぷぺぽゃゅょーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォガギグゲゴザジズゼゾダヂヅデドッバビブベボパピプペポャュョー')
 hrgn = list('あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんぁぃぅぇぉがぎぐげござじずぜぞだぢづでどっばびぶべぼぱぴぷぺぽゃゅょー')
 ktkn = list('アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォガギグゲゴザジズゼゾダヂヅデドッバビブベボパピプペポャュョー')
 
@@ -12,34 +14,50 @@ app = Flask(__name__, static_folder='.', static_url_path='')
 
 @app.route('/')
 def index():
-    user_ip = str(request.remote_addr)
+    user_id = str(request.remote_addr)
     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
-    return render_template('index.html', ip=user_ip, time=now)
+    return render_template('index.html', ip=user_id, time=now)
 
 @app.route('/joining', methods=['POST'])
 def joining():
-    user_ip = str(request.remote_addr)
+    user_id = str(request.remote_addr)
     room_id = request.form['roomID']
     now = time.time()
+    print(f' access from',user_id,'in',room_id)
     if not room_id in rooms:
-        rooms[room_id] = {'users':{},'hitters':['hitters:']}
+        rooms[room_id] = {'users':{user_id:now},'hitters':['hitters:']}
     else:
-        rooms[room_id]['users'][user_ip] = now
+        rooms[room_id]['users'][user_id] = now
     
-    exitUsers = []
-    for user_ip, time_stamp in rooms[room_id]['users'].items():
-        if time_stamp + 8 < now:
-            exitUsers.append(user_ip)
-    for user_ip in exitUsers:
-        rooms[room_id].pop(user_ip, None)
-    print(rooms)
+    # hittersにナンバーを付加して送信
+    roomScan()
+    for rid in rooms:
+        print('',rid, rooms[rid])
     return json.dumps({'roomNum':len(rooms[room_id]['users']), 'hitters':rooms[room_id]['hitters']})
+
+def roomScan():
+    now = time.time()
+    if room_scan_prev + room_scan_cycle < now:
+        empty_room = []
+        for room_id in rooms:
+            exitUsers = []
+            if len(rooms[room_id]['users']) == 0:
+                empty_room.append(room_id)
+            for user_id, time_stamp in rooms[room_id]['users'].items():
+                if time_stamp + 8 < now:
+                    exitUsers.append(user_id)
+            for user_id in exitUsers:
+                rooms[room_id]['users'].pop(user_id, None)
+        for room_id in empty_room:
+            rooms.pop(room_id)
 
 @app.route('/matching', methods=['POST'])
 def matching():
     room_id = request.form['roomID']
     user_name = request.form['userName']
-    rooms[room_id]['hitters'].append('No.'+ str(len(rooms[room_id]['hitters'])) + ': ' + user_name)
+    # 一致していなかったら追加
+    if not user_name in rooms[room_id]['hitters']:
+        rooms[room_id]['hitters'].append('No.'+ str(len(rooms[room_id]['hitters'])) + ': ' + user_name)
     return '0'
 
 @app.route('/check', methods=['POST'])
@@ -61,7 +79,7 @@ def checkWord():
 @app.route('/guess', methods=['POST'])
 def coloring():
     # hit blow error
-    right_word = 'おかちまち'
+    right_word = 'けぷすとらむ'
     guess_word = requests.pop(str(request.remote_addr))
     num_char = len(guess_word)
     right_list = list(right_word)
