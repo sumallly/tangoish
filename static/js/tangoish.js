@@ -16,6 +16,7 @@ var alertText = '';
 var historyPosCnt = 0;
 var historyPosRow = -1;
 const wordLen = 6;
+var matched = false;
 var roomID, userName;
 
 function time() {
@@ -37,6 +38,8 @@ function joining() {
 }
 
 function matching() {
+    console.log('match!');
+    matched = true;
     $.ajax({
         type: 'POST',
         url: '/matching',
@@ -137,6 +140,9 @@ function swapKeyboardCharType() {
 }
 
 function clickKeyboard(e) {
+    if (matched)
+        return
+    var currentType = ('あ' == document.getElementById('あ').textContent);
     var input = document.getElementById('input_data');
     if (e.target.id != '　')
         input.value = input.value + e.target.id;
@@ -144,6 +150,8 @@ function clickKeyboard(e) {
 }
 
 function clickKeyboardHeader(e) {
+    if (matched)
+        return
     switch (e.target.id) {
         case 'giveup':
             // give up process
