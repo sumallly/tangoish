@@ -86,7 +86,7 @@ function checkWord(inputData) {
                 if (evalNum & 1)
                     alertText += 'キーボードにある文字のみを入力してください\n';
                 if (evalNum & 2)
-                    alertText += 'test2\n';
+                    alertText += '単語リストにある単語を入力してください\n';
                 if (evalNum & 4)
                     alertText += 'test4\n';
                 alert(alertText);
@@ -228,7 +228,7 @@ function clickKeyboardHeader(e) {
 }
 
 window.addEventListener('load', () => {
-    roomID = prompt('enter room number (ex. "1" or "pokemon1")\ncan decide word length by hyphen and single digit (ex. "seed-5")', '1');
+    roomID = prompt('enter room number (ex. "1" or "pokemon1")\nword length or pokemon gen(ex. "pokemon1-5")', '1');
     document.getElementById('roomID').textContent = 'roomID:'+roomID + '　';
     join();
     userName = prompt('enter user name', '');

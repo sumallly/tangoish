@@ -24,9 +24,10 @@ def pickAnswer(seed):
     word_len = 5
     answer = ''
     now = math.floor(time.time())
-    if seed[-2]=='-' and seed[-1].isdecimal():
-        word_len = int(seed[-1])
-        seed = seed[:-2]
+    if len(seed) > 1:
+        if seed[-2]=='-' and seed[-1].isdecimal():
+            word_len = int(seed[-1])
+            seed = seed[:-2]
     
     if seed.startswith('pokemon'):
         if seed[-1].isdecimal():
