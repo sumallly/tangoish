@@ -144,8 +144,12 @@ function clickKeyboard(e) {
         return
     var currentType = ('あ' == document.getElementById('あ').textContent);
     var input = document.getElementById('input_data');
-    if (e.target.id != '　')
-        input.value = input.value + e.target.id;
+    if (e.target.id != '　' && input.value.length < wordLen) {
+        if (currentType)
+            input.value = input.value + charsJSON[e.target.id]['hrgn'];
+        else
+            input.value = input.value + charsJSON[e.target.id]['ktkn'];
+    }
     reflectInputToHistory();
 }
 
