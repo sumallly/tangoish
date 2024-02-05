@@ -186,9 +186,10 @@ async function submit() {
         url: '/guess',
     }).done(function (res) {
         resJSON = JSON.parse(res);
-        if (resJSON['match'] == 1)
+        if (resJSON['match'] == 1) {
             console.log('match!');
             matching();
+        }
         $('#result').html(res);
     }).fail(function () {
         alert('error!!!');
@@ -247,9 +248,9 @@ window.addEventListener('load', () => {
         }
     }
 
-    roomID = prompt('enter room number', '192');
+    roomID = prompt('enter room number', '1');
     document.getElementById('roomID').textContent = roomID;
-    userName = prompt('enter user name', 'sumallly');
+    userName = prompt('enter user name', '');
     document.getElementById('userName').textContent = userName;
     joining();
     setInterval(joining, 5000);
