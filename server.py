@@ -2,6 +2,7 @@
 import datetime, json, time, csv, random, math, re
 
 requests = {}
+word_lists = {}
 rooms = {}
 room_scan_prev = 0.0
 room_scan_cycle = 5.0
@@ -21,6 +22,7 @@ def index():
 def pickAnswer(seed):
     word_list = []
     word_list_path = ''
+    word_type = ''
     word_len = 5
     answer = ''
     now = math.floor(time.time())
@@ -29,7 +31,8 @@ def pickAnswer(seed):
             word_len = int(seed[-1])
             seed = seed[:-2]
     
-    if seed.startswith('pokemon'):
+    if seed.startswith('poke'):
+        word_type = 'poke'
         if seed[-1].isdecimal():
             seed = int(re.findall(r'\d+', seed)[-1])
         else:
@@ -38,6 +41,7 @@ def pickAnswer(seed):
         word_list_path = 'static/wordlist/pokemon.csv'
     
     else:
+        word_type = 'ja'
         if seed.isdecimal():
             seed = int(seed)
         else:
@@ -48,6 +52,9 @@ def pickAnswer(seed):
     with open(word_list_path, encoding='utf-8-sig') as f:
         reader = csv.reader(f)
         word_list = [row for row in reader]
+    word_lists[word_type] = []
+    for word in word_list[1:]:
+        word_lists[word_type].append(word[0])
 
     if word_len <= len(word_list[0]):
         if int(word_list[0][word_len - 1]) > 0:
@@ -58,7 +65,7 @@ def pickAnswer(seed):
     else:
         answer = word_list[random.randrange(1, len(word_list))]
     
-    return list(answer[0])
+    return list(answer[0]), word_type
 
 @app.route('/join', methods=['POST'])
 def join():
@@ -67,11 +74,11 @@ def join():
     now = time.time()
     if not room_id in rooms:
         # 部屋建てる
-        answer = pickAnswer(seed=room_id)
+        answer, word_type = pickAnswer(seed=room_id)
         for i, char in enumerate(answer):
             answer[i] = hrgn[ktkn.index(char)]
         
-        rooms[room_id] = {'users':{user_id:now},'hitters':[], 'answer':answer, 'answerLen':len(answer)}
+        rooms[room_id] = {'users':{user_id:now},'hitters':[], 'type': word_type, 'answer':answer, 'answerLen':len(answer)}
     return json.dumps({'answerLen': rooms[room_id]['answerLen']})
 
 @app.route('/joining', methods=['POST'])
@@ -122,6 +129,7 @@ def matching():
 @app.route('/check', methods=['POST'])
 def checkWord():
     eval_num = 0
+    room_id = request.form['roomID']
     guess_word = list(request.form['word'])
     for i, char in enumerate(guess_word):
         if char in hrgn:
@@ -131,7 +139,21 @@ def checkWord():
         else:
             eval_num += 1
             break
+    if len(guess_word) == 0:
+        eval_num += 2
+
     requests[str(request.remote_addr)] = guess_word
+    
+    guess_word_str = ''
+    for i, char in enumerate(guess_word):
+        if char in hrgn:
+            guess_word_str +=  ktkn[hrgn.index(char)]
+        else:
+            guess_word_str += char
+    print('guess_word_str',guess_word_str)
+    if not guess_word_str in word_lists[rooms[room_id]['type']]:
+        eval_num += 4
+        
     return json.dumps({'eval':eval_num, 'hrgn':guess_word}, ensure_ascii=False)
 
 @app.route('/guess', methods=['POST'])
