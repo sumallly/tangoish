@@ -71,7 +71,7 @@ function checkWord(inputData) {
         $.ajax({
             type: 'POST',
             url: '/check',
-            data: { 'word': inputData }
+            data: { 'roomID': roomID , 'word': inputData }
         }).done(function (res) {
             $('#response').html(res);
             var resJSON = JSON.parse(res);
@@ -86,9 +86,9 @@ function checkWord(inputData) {
                 if (evalNum & 1)
                     alertText += 'キーボードにある文字のみを入力してください\n';
                 if (evalNum & 2)
-                    alertText += '単語リストにある単語を入力してください\n';
+                    alertText += '単語を入力してください\n';
                 if (evalNum & 4)
-                    alertText += 'test4\n';
+                    alertText += '単語リストにある単語を入力してください\n';
                 alert(alertText);
                 resolve(null);
             }
