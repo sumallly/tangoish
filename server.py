@@ -23,7 +23,7 @@ def pickAnswer(seed):
     word_list = []
     word_list_path = ''
     word_type = ''
-    word_len = 5
+    word_len = 255
     answer = ''
     now = math.floor(time.time())
     if len(seed) > 1:
@@ -36,16 +36,16 @@ def pickAnswer(seed):
         if seed[-1].isdecimal():
             seed = int(re.findall(r'\d+', seed)[-1])
         else:
-            seed = 0
+            seed = random.randrange(0, 86400)
         random.seed(now - (now%86400) + seed)
         word_list_path = 'static/wordlist/pokemon.csv'
-    
+    # データベース追加案　地名・国名
     else:
         word_type = 'ja'
         if seed.isdecimal():
             seed = int(seed)
         else:
-            seed = 0
+            seed = random.randrange(0, 86400)
         random.seed(now - (now%86400) + seed)
         word_list_path = 'static/wordlist/wordlist.csv'
 
@@ -146,6 +146,7 @@ def checkWord():
     
     guess_word_str = ''
     for i, char in enumerate(guess_word):
+        # wikiのリンク参照など　もっと緩くする
         if char in hrgn:
             guess_word_str +=  ktkn[hrgn.index(char)]
         else:
